@@ -1,0 +1,61 @@
+import socket
+import os
+from colorama import init
+from termcolor import cprint
+import argparse
+
+# Initialize colorama
+init()
+
+# Print the banner
+def print_welcome():
+    cprint("""
+  ____  _                        _ _____           _    
+ |  _ \| |                      | |  __ \         | |   
+ | |_) | | ___  ___ ___  ___  __| | |__) |__  _ __| |_  
+ |  _ <| |/ _ \/ __/ __|/ _ \/ _` |  ___/ _ \| '__| __| 
+ | |_) | |  __/\__ \__ \  __/ (_| | |  | (_) | |  | |_  
+ |____/|_|\___||___/___/\___|\__,_|_|   \___/|_|   \__| 
+
+ Version 1.0
+ Developed by Team Blessed
+    """, "red")
+
+
+def scan_ports(target_ip, start_port, end_port):
+    print(f"Starting scan on {target_ip} for ports {start_port}-{end_port}\n")
+
+    open_ports = []
+    for port in range(start_port, end_port + 1):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        socket.setdefaulttimeout(1)
+        result = sock.connect_ex((target_ip, port))
+        if result == 0:
+            open_ports.append(port)
+            print(f"Port {port} is \033[92mopen\033[0m")  # اللون الأخضر عند الفتح
+        sock.close()
+
+    if not open_ports:
+        print(f"No open ports found on {target_ip} in range {start_port}-{end_port}")
+    else:
+        print(f"\nOpen ports on {target_ip}: {open_ports}")
+
+
+if __name__ == "__main__":
+    print_welcome()
+    try:
+        target_ip = input("Enter target IP address: ")
+        start_port = int(input("Enter start port: "))
+        end_port = int(input("Enter end port: "))
+
+        if start_port > end_port:
+            print("Error: Start port must be less than or equal to end port")
+            sys.exit()
+
+        scan_ports(target_ip, start_port, end_port)
+    except KeyboardInterrupt:
+        print("\nScan interrupted by user. Exiting...")
+    except ValueError:
+        print("Invalid input. Please enter valid numbers for ports.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
