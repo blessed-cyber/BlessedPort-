@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="BlessedPort.png" width="800px" alt="BlessedScan Logo">
+    <img src="BlessedPort.png" width="800px" alt="BlessedPort Logo">
   </p>
   
   
@@ -12,9 +12,9 @@
   ### Installation
   
   ```bash
-  * `git clone https://github.com/blessed-cyber/BlessedScan.git`
-  * `cd BlessedScan`
-  * `python3 BlessedScan.py`
+  * `git clone https://github.com/blessed-cyber/BlessedPort.git`
+  * `cd BlessedPort`
+  * `python3 BlessedPort.py`
   ```
   
   
